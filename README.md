@@ -1,5 +1,7 @@
 # Pagebuilder
 
+![Editor Screenshot](https://github.com/mswiszcz/pagebuilder/blob/master/resources/screenshot.png)
+
 Pagebuilder (codename SIVA) is new Static Site IDE built with React, Redux, Webpack & Electron.
 
 This project is in an early alpha phase, there may be bugs, missing features and unclean code.
