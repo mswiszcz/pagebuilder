@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.separator {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 1em 0 2.5em;
+}

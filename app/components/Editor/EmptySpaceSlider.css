@@ -1,0 +1,30 @@
+.component {
+  height: 100vh;
+  flex: 1 0 auto;
+  background: #1a1a1b;
+  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  overflow: scroll;
+  color: #59595d;
+  text-align: center;
+  font-size: 1.8em;
+  max-width: 80%;
+  line-height: 1.4;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+.slide em {
+  border: 1px solid #59595d;
+  display: inline-block;
+  padding: 3px 12px;
+  margin: 3px 0;
+  border-radius: 3px;
+}

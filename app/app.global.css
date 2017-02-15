@@ -1,0 +1,80 @@
+@import "~font-awesome/css/font-awesome.css";
+@import "~codemirror/lib/codemirror.css";
+@import "~codemirror/theme/pastel-on-dark.css";
+
+body {
+  margin: 0;
+}
+
+main {
+  position: relative;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main.dashboard {
+  background:  url('../resources/bg.jpeg') fixed no-repeat;
+  background-size: cover;
+  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
+  padding: 20px 50px;
+}
+
+main.dashboard::before {
+  content: '';
+  position: fixed;
+  background: rgba(0, 0, 0, 0.85);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+main.dashboard .main-container {
+  z-index: 1;
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: white;
+  opacity: .75;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button, button:focus, button:active {
+  outline: none;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ReactCodeMirror, .CodeMirror {
+  height: calc(100vh - 35px);
+}
+
+.cm-s-pastel-on-dark .CodeMirror-gutters {
+  background: #1a1a1b;
+  border-right: 1px solid #2f2f31;
+}
+
+.cm-s-pastel-on-dark.CodeMirror {
+  background: #232325;
+}

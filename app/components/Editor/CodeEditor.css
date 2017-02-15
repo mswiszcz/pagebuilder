@@ -1,0 +1,46 @@
+.component {
+  height: 100vh;
+  flex: 1 0 auto;
+  background: #18181a;
+  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  flex: 0 0 auto;
+  line-height: 24px;
+  font-size: .8em;
+  padding: 5px 10px;
+  background: #0b0b0b;
+  border-top: 1px solid #222;
+  color: #888;
+  position: relative;
+  display: flex;
+  height: 35px;
+}
+
+.editor {
+  flex: 1 0 auto;
+  max-height: calc(100vh - 35px);
+  overflow: scroll;
+  max-width: calc(100vw - 251px);
+}
+
+.footerElement {
+  position: relative;
+  flex: 1 0 auto;
+  cursor: pointer;
+  display: flex;
+  line-height: 26px;
+}
+
+.footerElement * {
+  flex: 1 0 auto;
+}
+
+.footerElement:hover span {
+  color: rgb(53, 66, 187);
+  text-decoration: underline;
+}

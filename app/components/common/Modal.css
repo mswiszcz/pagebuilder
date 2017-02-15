@@ -1,0 +1,43 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 200px);
+  width: 400px;
+
+  background: #18181a;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 0 0 3px 3px;
+  box-shadow: 0 6px 10px 5px rgba(0, 0, 0, 0.3);
+}
+
+.content label {
+  display: block;
+  margin: .2em .5em .5em .5em;
+  font-size: .9em;
+}
+
+.content input {
+  width: 100%;
+  display: block;
+  border: none;
+  padding: .5em .7em;
+  font-size: 1em;
+  background: #0b0b0b;
+  color: #fff;
+  border: 1px solid #222;
+}
+
+.content input:focus, .content input:active {
+  outline: none;
+}

@@ -1,0 +1,89 @@
+.container {
+  display: flex;
+}
+
+.preview {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.previewIframe {
+  border: 0;
+  position: absolute;
+  margin: 0;
+  transition: width .3s, height .3s, margin .3s;
+}
+
+.previewIframeResponsive {
+  margin: 12px;
+  padding-right: 50px;
+}
+
+.iframeContainer {
+  flex: 1 0 calc(100vh - 50px);
+  overflow: scroll;
+  background: #232325;
+  position: relative;
+  padding-right: 100px;
+}
+
+.previewToolbar {
+  flex: 0 0 50px;
+  background: #18181a;
+  border-bottom: 1px solid #2f2f31;
+  color: #888;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.responsiveToggle, .responsiveRotate, .responsiveSelect {
+  border: 0;
+  background: #333;
+  margin: 0 5px;
+  padding: 7px 12px;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  transition: background .3s;
+}
+
+.responsiveRotate {
+  font-size: .65em;
+  height: 27px;
+  padding: 3px 12px;
+}
+
+.responsiveRotate i {
+  transform: rotateZ(0deg);
+  transform-origin: 50% 50%;
+  transition: transform .3s;
+}
+
+.responsiveRotateActive i {
+  transform: rotateZ(90deg);
+}
+
+.responsiveToggle:hover, .responsiveRotate:hover, .responsiveSelect:hover {
+  background: rgb(53, 66, 187);
+}
+
+.responsiveToggle:active, .responsiveRotate:active, .responsiveSelect:active {
+  background: rgb(53, 99, 187);
+}
+
+.responsiveToggleActive {
+  background: rgb(47, 134, 92);
+}
+
+.responsiveSelect {
+  -webkit-border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.responsiveSelect:disabled, .responsiveRotate:disabled {
+  background: #333;
+  color: #777;
+}

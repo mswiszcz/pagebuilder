@@ -1,0 +1,59 @@
+
+.list {
+  margin: 0;
+  padding: 10px 0;
+  position: relative;
+}
+
+.listEmpty {
+  padding: 0 14px;
+  color: #555;
+  font-weight: 300;
+  font-style: italic;
+  font-size: .9em;
+}
+
+.section li {
+  padding: 7px 20px;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section li:hover {
+  background: #222;
+}
+
+.section li.active {
+  box-shadow: inset 3px 0 0 0 rgb(53, 66, 187);
+  background: #222;
+}
+
+.section li i {
+  background: rgb(64, 187, 53);
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #222;
+  padding: 12px;
+  border-left: 3px solid rgb(53, 66, 187);
+}
+
+.sectionHeader i {
+  cursor: pointer;
+  opacity: .5;
+  transition: opacity .3s, color .3s;
+}
+
+.sectionHeader i:hover {
+  opacity: 1;
+  color: #2dc42f;
+}

@@ -1,0 +1,15 @@
+.component {
+  height: 100vh;
+  flex: 0 0 50px;
+  background: #18181a;
+  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
+  color: #fff;
+  border-left: 1px solid #2f2f31;
+}
+
+.component hr {
+  border: none;
+  border-bottom: 1px solid #1f1f20;
+  width: 90%;
+  margin-left: 5%;
+}

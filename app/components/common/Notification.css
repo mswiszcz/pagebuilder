@@ -1,0 +1,42 @@
+.content {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+
+  background: rgb(53, 91, 187);
+  overflow: auto;
+  padding: 15px;
+  border-radius: 3px;
+  box-shadow: 0 6px 10px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  color: #fff;
+  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 7px;
+}
+
+.ghostButton, .linkButton {
+  border: 0;
+  background: none;
+  margin: 0 0 0 7px;
+  padding: 7px 10px;
+  font-size: .7em;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.ghostButton {
+  border: 1px solid #eee;
+  border-radius: 3px;
+}
+
+.ghostButton:hover {
+  background: rgba(255, 255, 255, .1);
+}

@@ -1,0 +1,26 @@
+.component {
+  position: absolute;
+  z-index: 1000;
+  background: rgba(0,0,0,0.8);
+  font-size: 1em;
+  margin: 0;
+  outline: none;
+  min-width: 200px;
+  padding: 0;
+  box-shadow: 2px 4px 12px 2px rgba(0, 0, 0, 0.5);
+}
+
+.component li {
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.component li:hover {
+  color: #fff;
+  background: rgb(53, 66, 187);
+}
+
+.component hr {
+  border: 0;
+  border-top: 1px solid #222;
+}

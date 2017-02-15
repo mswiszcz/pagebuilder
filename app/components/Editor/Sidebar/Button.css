@@ -1,0 +1,39 @@
+.button {
+  display: block;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2em;
+  cursor: pointer;
+  line-height: 52px;
+  text-align: center;
+  opacity: .3;
+  transition: opacity .3s;
+  position: relative;
+}
+
+.tooltip {
+  opacity: 0;
+  position: absolute;
+  right: 90%;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  white-space: nowrap;
+  font-size: .7em;
+  padding: 0 7px;
+  line-height: 24px;
+  height: 24px;
+  top: calc(50% - 12px);
+  visibility: hidden;
+  transition: opacity .3s 0s, visibility 0s .3s;
+}
+
+.button:hover, .active {
+  background: rgb(53, 66, 187);
+  opacity: 1;
+}
+
+.button:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .5s 2s, visibility 0s 2s;
+}
