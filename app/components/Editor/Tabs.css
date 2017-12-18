@@ -1,0 +1,30 @@
+.component {
+  background: #1a1a1b;
+  height: 36px;
+  border-bottom: 1px solid #2f2f31;
+  display: flex;
+  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
+  font-size: .8em;
+}
+
+.tab {
+  flex: 0 1 20%;
+  text-align: center;
+  line-height: 38px;
+  color: #949393;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab:hover {
+  background: #1f1f20;
+}
+
+.activeTab, .activeTab:hover {
+  background: #232325;
+  color: #eee;
+  margin-bottom: -1px;
+  cursor: default;
+}

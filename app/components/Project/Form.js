@@ -6,11 +6,6 @@ import styles from './Form.css'
 import os from 'os';
 
 export default class Form extends Component {
-  props: {
-    createProject: () => void,
-    deleteProject: () => void
-  };
-
   constructor(props) {
     super(props);
 
@@ -50,7 +45,7 @@ export default class Form extends Component {
   }
 
   createAndOpenProject = () => {
-    // TODO: Check if project directory does not exists
+    // TODO: Check if project directory does not exist
 
     this.props.saveProject(this.state.name, this.state.directory, this.state.id);
     this.props.router.push('/');

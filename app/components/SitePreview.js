@@ -110,11 +110,7 @@ export default class SitePreview extends Component {
           </div>
 
           <div className={styles.iframeContainer}>
-            <iframe className={responsiveIframeClass}
-                    srcDoc={this.iframeCode()}
-                    width={iframeWidth}
-                    height={iframeHeight}
-                    >
+            <iframe width={iframeWidth} height={iframeHeight} src="http://localhost:8000" frameBorder="0">
             </iframe>
           </div>
         </div>

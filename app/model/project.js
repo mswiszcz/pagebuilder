@@ -20,15 +20,6 @@ export class Project {
     this.id = id;
     this.name = name;
     this.directory = directory;
-
-    this.sourceDirectory = `${this.directory}/src`;
-    this.assetsDirectory = `${this.sourceDirectory}/assets`;
-
-    this.directories = {
-      html: `${this.sourceDirectory}/html`,
-      css: `${this.sourceDirectory}/css`,
-      js: `${this.sourceDirectory}/js`
-    };
   }
 
   setup = () => {
@@ -36,8 +27,7 @@ export class Project {
     this.color = AVAILABLE_COLORS[Math.floor(Math.random()*AVAILABLE_COLORS.length)];
     this.updatedAt = moment().format(PROJECT_DATE_FORMAT);
 
-    this.setupDirectories();
-    this.setupDefaultFiles();
+    this.gatsbyGenerate();
   }
 
   update(params = {}) {
@@ -46,20 +36,20 @@ export class Project {
     this.updatedAt = moment().format(PROJECT_DATE_FORMAT);
   }
 
-  setupDirectories() {
-    fs.mkdirSync(this.directory);
-    fs.mkdirSync(this.sourceDirectory);
-    fs.mkdirSync(this.assetsDirectory);
+  gatsbyGenerate() {
+    const { exec } = require('child_process');
 
-    fs.mkdirSync(this.directories['html']);
-    fs.mkdirSync(this.directories['css']);
-    fs.mkdirSync(this.directories['js']);
-  }
+    let directory = this.directory.substring(0, this.directory.lastIndexOf('/'));
 
-  setupDefaultFiles() {
-    fs.writeFile(`${this.directories['html']}/index.html`, '');
-    fs.writeFile(`${this.directories['css']}/main.css`, '');
-    fs.writeFile(`${this.directories['js']}/main.js`, '');
+    // TODO: Catch errors
+    exec(`cd ${directory} && gatsby new ${this.name}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
   }
 
   static saveAll(newProjects) {

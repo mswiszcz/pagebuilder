@@ -2,6 +2,7 @@
 import { WRITE_FILE, OPEN_FILE, SAVE_FILE, DELETE_FILE, UPDATE_FILE } from '../actions/file';
 import { OPEN_PROJECT } from '../actions/project';
 import { File } from '../model/file';
+import { Directory } from '../model/directory';
 import fs from 'fs';
 
 export function openFile(state = null, action: Object) {
@@ -35,33 +36,38 @@ export function openFile(state = null, action: Object) {
   }
 }
 
-export function manageFiles(state: Object = { html: [], css: [], js: [] }, action: Object) {
+export function manageFiles(state = [], action: Object) {
   let newFiles;
   let file, newFile;
 
   switch (action.type) {
     case OPEN_PROJECT:
-      newFiles = {};
+      let files = fs.readdirSync(action.project.directory);
 
-      for (let type of ['html', 'css', 'js']) {
-        let files = fs.readdirSync(action.project.directories[type]);
-        newFiles[type] = [];
+      files = files.map((file, i) => {
+        let content = 'bb';
+        let filetype = 'html';
+        let name;
 
-        files.map((file, i) => {
-          let name = file.substring(0, file.indexOf('.'));
-          let filetype = file.substring(file.indexOf('.') + 1);
-          let content = fs.readFileSync(`${action.project.directories[type]}/${file}`, 'utf8');
+        if (fs.lstatSync(`${action.project.directory}/${file}`).isDirectory()) {
+          name = `DIR: ${file}`;
 
-          newFiles[type][i] = new File(i, name, content, filetype, action.project);
-        });
-      }
+          return new Directory(i, name, action.project);
+        } else {
+          name = file;
+          filetype = file.substring(file.indexOf('.') + 1);
+          content = fs.readFileSync(`${action.project.directory}/${file}`, 'utf8');
 
-      return newFiles;
+          return new File(i, name, content, filetype, action.project);
+        }
+      });
+
+      return files;
     case UPDATE_FILE:
       file = action.file;
-      newFiles = Object.assign({}, state);
+      newFiles = Object.assign([], state);
 
-      newFile = newFiles[file.type].find((element) => { return element.id == file.id });
+      newFile = newFiles.find((element) => { return element.id == file.id });
 
       if (action.name) { newFile.name = action.name }
       if (action.filetype) { newFile.filetype = action.filetype }
@@ -73,6 +79,8 @@ export function manageFiles(state: Object = { html: [], css: [], js: [] }, actio
 
       return newFiles;
     case SAVE_FILE:
+      // FIXME
+
       file = action.file;
       newFiles = Object.assign({}, state);
 

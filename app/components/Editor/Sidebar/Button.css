@@ -35,5 +35,5 @@
 .button:hover .tooltip {
   opacity: 1;
   visibility: visible;
-  transition: opacity .5s 2s, visibility 0s 2s;
+  transition: opacity .5s 1s, visibility 0s 1s;
 }

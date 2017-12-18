@@ -1,3 +1,7 @@
 .container {
   display: flex;
 }
+
+.mainContent {
+  flex: 1 0 auto;
+}

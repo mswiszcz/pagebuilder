@@ -11,7 +11,7 @@
 }
 
 .slide {
-  overflow: scroll;
+  overflow: hidden;
   color: #59595d;
   text-align: center;
   font-size: 1.8em;

@@ -9,15 +9,14 @@ export default class Sidebar extends Component {
 
     return (
       <div className={styles.component}>
-        <Button to='/' icon='cube' tooltip='Projects' activeRoute={activeRoute} />
+        <Button to='/' icon='th' tooltip='Projects' activeRoute={activeRoute} />
 
         <hr />
 
         <Button to='/editor' icon='code' tooltip='Code editor' activeRoute={activeRoute} />
         <Button to='/preview' icon='desktop' tooltip='Preview website' activeRoute={activeRoute} />
-
-        <Button to='#' icon='book' tooltip='Snippets' activeRoute={activeRoute} />
-        <Button to='#' icon='check-square-o' tooltip='Todo' activeRoute={activeRoute} />
+        <Button to='/' icon='columns' tooltip='Split view (code / preview)' activeRoute={activeRoute} />
+        <Button to='/' icon='cube' tooltip='Server status' activeRoute={activeRoute} />
 
         <hr />
 

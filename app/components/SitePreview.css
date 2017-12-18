@@ -22,10 +22,9 @@
 
 .iframeContainer {
   flex: 1 0 calc(100vh - 50px);
-  overflow: scroll;
+  overflow: hidden;
   background: #232325;
   position: relative;
-  padding-right: 100px;
 }
 
 .previewToolbar {

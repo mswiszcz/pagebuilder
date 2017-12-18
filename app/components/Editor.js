@@ -7,6 +7,7 @@ import TreeView from './Editor/TreeView';
 import CodeEditor from './Editor/CodeEditor';
 import Sidebar from './Editor/Sidebar';
 import EmptySpaceSlider from './Editor/EmptySpaceSlider';
+import Tabs from './Editor/Tabs';
 
 export default class Editor extends Component {
   constructor(props) {
@@ -33,12 +34,15 @@ export default class Editor extends Component {
                   renameFile={this.props.renameFile}
                 />
 
-        { currentFile ? <CodeEditor currentFile={currentFile}
-                                    saveFile={this.props.saveFile}
-                                    updateFile={this.props.updateFile}
-                                    />
-                      : <EmptySpaceSlider />
-        }
+        <div className={styles.mainContent}>
+          { currentFile ? <Tabs files={files} currentFile={currentFile} openFile={this.props.openFile}/> : '' }
+          { currentFile ? <CodeEditor currentFile={currentFile}
+                                      saveFile={this.props.saveFile}
+                                      updateFile={this.props.updateFile}
+                                      />
+                        : <EmptySpaceSlider />
+          }
+        </div>
 
         <Sidebar activeRoute={activeRoute} />
       </main>

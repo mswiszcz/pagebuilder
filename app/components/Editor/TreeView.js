@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import styles from './TreeView.css';
 import ContextMenu from '../common/ContextMenu';
 import * as beautify from 'js-beautify';
-import { AVAILABLE_MODES } from '../../model/file';
 
 import { File } from './../../model/file';
 import Header from './TreeView/Header';
@@ -17,12 +16,12 @@ export default class TreeView extends Component {
     showContextMenu: false
   }
 
-  newFile = (filetype) => {
-    let file = new File(null, '', '', filetype);
+  newFile = () => {
+    let file = new File(null, '', '', 'html');
 
     this.setState({
       showModal: true,
-      modalHeader: `Enter name for new ${filetype} file:`,
+      modalHeader: `Enter name for new file:`,
       focusFile: file,
     })
   }
@@ -60,27 +59,9 @@ export default class TreeView extends Component {
 
         <div className={styles.content}>
           <List currentFile={currentFile}
-                files={files.html}
+                files={files}
                 filetype='html'
                 header='Sites'
-                openFile={this.props.openFile}
-                newFile={this.newFile}
-                onContextMenu={this.toggleContextMenu}
-          />
-
-          <List currentFile={currentFile}
-                files={files.css}
-                filetype='css'
-                header='Styles'
-                openFile={this.props.openFile}
-                newFile={this.newFile}
-                onContextMenu={this.toggleContextMenu}
-          />
-
-          <List currentFile={currentFile}
-                files={files.js}
-                filetype='js'
-                header='Scripts'
                 openFile={this.props.openFile}
                 newFile={this.newFile}
                 onContextMenu={this.toggleContextMenu}
