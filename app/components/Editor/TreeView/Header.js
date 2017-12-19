@@ -13,12 +13,6 @@ export default class Header extends Component {
           <img className={styles.icon} src={require('../../../../resources/animals/'+ currentProject.icon + '.png')} />
           <div className={styles.title}>{ currentProject.name }</div>
         </div>
-
-        <div>
-          <Link to={`/projects/${currentProject.id}/edit`}>
-            <i className="fa fa-cog" />
-          </Link>
-        </div>
       </header>
     );
   }

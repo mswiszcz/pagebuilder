@@ -5,6 +5,7 @@ import * as FileActions from '../actions/file';
 
 function mapStateToProps(state) {
   return {
+    treeFiles: state.treeFiles,
     currentProject: state.currentProject,
     files: state.files,
     currentFile: state.currentFile

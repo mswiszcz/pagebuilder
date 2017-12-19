@@ -1,5 +1,5 @@
 // @flow
-import { LOAD_PROJECTS, SAVE_PROJECT, DELETE_PROJECT, OPEN_PROJECT } from '../actions/project';
+import { LOAD_PROJECTS, SAVE_PROJECT, DELETE_PROJECT, LOAD_PROJECT } from '../actions/project';
 import { PROJECT_DATE_FORMAT, randomColorIcon } from '../model/project';
 
 import { Project } from '../model/project';
@@ -9,7 +9,7 @@ import fs from 'fs';
 
 export function openProject(state: Object = {}, action: Object) {
   switch (action.type) {
-    case OPEN_PROJECT:
+    case LOAD_PROJECT:
       return action.project;
     default:
       return state;

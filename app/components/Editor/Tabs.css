@@ -3,19 +3,20 @@
   height: 36px;
   border-bottom: 1px solid #2f2f31;
   display: flex;
-  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
   font-size: .8em;
 }
 
 .tab {
   flex: 0 1 20%;
   text-align: center;
-  line-height: 38px;
+  line-height: 34px;
   color: #949393;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-top: 2px solid transparent;
+  transition: border-top .3s;
 }
 
 .tab:hover {
@@ -27,4 +28,5 @@
   color: #eee;
   margin-bottom: -1px;
   cursor: default;
+  border-top: 2px solid #744C9E;
 }

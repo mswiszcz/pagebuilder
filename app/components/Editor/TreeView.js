@@ -51,7 +51,7 @@ export default class TreeView extends Component {
   }
 
   render() {
-    const { currentProject, files, currentFile } = this.props;
+    const { currentProject, treeFiles, currentFile } = this.props;
 
     return (
       <div className={styles.component}>
@@ -59,9 +59,9 @@ export default class TreeView extends Component {
 
         <div className={styles.content}>
           <List currentFile={currentFile}
-                files={files}
+                files={treeFiles}
                 filetype='html'
-                header='Sites'
+                header='Source'
                 openFile={this.props.openFile}
                 newFile={this.newFile}
                 onContextMenu={this.toggleContextMenu}

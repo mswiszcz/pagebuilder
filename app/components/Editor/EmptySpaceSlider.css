@@ -1,8 +1,7 @@
 .component {
-  height: 100vh;
+  height: 100%;
   flex: 1 0 auto;
   background: #1a1a1b;
-  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
   color: #fff;
   display: flex;
   flex-direction: column;

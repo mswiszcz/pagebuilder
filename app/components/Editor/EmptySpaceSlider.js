@@ -7,8 +7,8 @@ export default class EmptySpaceSlider extends Component {
     return (
       <div className={styles.component}>
         <div className={styles.slide}>
-          Open file from tree on the left, <br/>
-          or use <em>CMD+T</em> to draw quick open menu.
+          No file selected <br/>
+          Open file from tree on the left
         </div>
       </div>
     );

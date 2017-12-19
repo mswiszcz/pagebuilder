@@ -1,39 +1,46 @@
 // @flow
-import { WRITE_FILE, OPEN_FILE, SAVE_FILE, DELETE_FILE, UPDATE_FILE } from '../actions/file';
-import { OPEN_PROJECT } from '../actions/project';
+import { OPEN_FILE, SAVE_FILE, DELETE_FILE, UPDATE_FILE, CLOSE_FILE } from '../actions/file';
+import { LOAD_PROJECT } from '../actions/project';
 import { File } from '../model/file';
 import { Directory } from '../model/directory';
 import fs from 'fs';
 
-export function openFile(state = null, action: Object) {
+export function openFile(file = null, action: Object) {
   let newFile;
 
   switch (action.type) {
-    case OPEN_PROJECT:
-      return null;
     case OPEN_FILE:
       return action.file;
-    case SAVE_FILE:
-      if (!state) { return state }
-      newFile = Object.assign(Object.create(state), state);
-
-      newFile.savedContent = state.content;
-      newFile.updated = false;
-
-      return newFile;
-    case UPDATE_FILE:
-      newFile = Object.assign(Object.create(state), state);
-
-      if (action.filetype) { newFile.filetype = action.filetype }
-      if (action.mode) { newFile.mode = action.mode }
-
-      newFile.updated = state.savedContent != action.content;
-      newFile.content = action.content;
-
-      return newFile;
     default:
-      return state
+      return file;
   }
+  // switch (action.type) {
+  //   case CLOSE_FILE:
+  //   case LOAD_PROJECT:
+  //     return null;
+  //   case OPEN_FILE:
+  //     return null;
+  //   case SAVE_FILE:
+  //     if (!state) { return state }
+  //     newFile = Object.assign(Object.create(state), state);
+  //
+  //     newFile.savedContent = state.content;
+  //     newFile.updated = false;
+  //
+  //     return newFile;
+  //   case UPDATE_FILE:
+  //     newFile = Object.assign(Object.create(state), state);
+  //
+  //     if (action.filetype) { newFile.filetype = action.filetype }
+  //     if (action.mode) { newFile.mode = action.mode }
+  //
+  //     newFile.updated = state.savedContent != action.content;
+  //     newFile.content = action.content;
+  //
+  //     return newFile;
+  //   default:
+  //     return state
+  // }
 }
 
 export function manageFiles(state = [], action: Object) {
@@ -41,28 +48,17 @@ export function manageFiles(state = [], action: Object) {
   let file, newFile;
 
   switch (action.type) {
-    case OPEN_PROJECT:
-      let files = fs.readdirSync(action.project.directory);
-
-      files = files.map((file, i) => {
-        let content = 'bb';
-        let filetype = 'html';
-        let name;
-
-        if (fs.lstatSync(`${action.project.directory}/${file}`).isDirectory()) {
-          name = `DIR: ${file}`;
-
-          return new Directory(i, name, action.project);
-        } else {
-          name = file;
-          filetype = file.substring(file.indexOf('.') + 1);
-          content = fs.readFileSync(`${action.project.directory}/${file}`, 'utf8');
-
-          return new File(i, name, content, filetype, action.project);
-        }
-      });
-
-      return files;
+    case OPEN_FILE:
+      if (!state.includes(action.file)) {
+        newFiles = Object.assign([], state);
+        newFiles.push(action.file);
+        return newFiles;
+      } else {
+        return state;
+      }
+    case CLOSE_FILE:
+      console.log("CLOSE");
+      return state;
     case UPDATE_FILE:
       file = action.file;
       newFiles = Object.assign([], state);

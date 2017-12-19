@@ -16,7 +16,6 @@ export default class Sidebar extends Component {
         <Button to='/editor' icon='code' tooltip='Code editor' activeRoute={activeRoute} />
         <Button to='/preview' icon='desktop' tooltip='Preview website' activeRoute={activeRoute} />
         <Button to='/' icon='columns' tooltip='Split view (code / preview)' activeRoute={activeRoute} />
-        <Button to='/' icon='cube' tooltip='Server status' activeRoute={activeRoute} />
 
         <hr />
 

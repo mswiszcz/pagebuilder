@@ -28,7 +28,7 @@
 }
 
 .button:hover, .active {
-  background: rgb(53, 66, 187);
+  background: #744C9E;
   opacity: 1;
 }
 

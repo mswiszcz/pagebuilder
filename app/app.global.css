@@ -28,13 +28,15 @@ main {
   min-height: 100vh;
 }
 
+main * {
+  -webkit-filter: none;
+}
+
 * {
   box-sizing: border-box;
 }
 
 main.dashboard {
-  background:  url('../resources/bg.jpeg') fixed no-repeat;
-  background-size: cover;
   font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
   padding: 20px 50px;
 }
@@ -42,12 +44,14 @@ main.dashboard {
 main.dashboard::before {
   content: '';
   position: fixed;
-  background: rgba(0, 0, 0, 0.85);
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  z-index: 0;
+  background:  url('../resources/c2.jpg') center left no-repeat;
+  background-size: cover;
+  -webkit-filter: blur(2px) hue-rotate(15deg) grayscale(90%) brightness(10%);
+  width: 110vw;
+  height: 110vh;
+  top: -5vh;
+  left: -5vw;
+  z-index: -1;
 }
 
 main.dashboard .main-container {
@@ -87,6 +91,7 @@ button, button:focus, button:active {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 }
 
 .cm-s-pastel-on-dark .CodeMirror-gutters {

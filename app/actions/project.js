@@ -3,7 +3,7 @@ export const LOAD_PROJECTS = 'LOAD_PROJECTS';
 
 export const SAVE_PROJECT = 'SAVE_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
-export const OPEN_PROJECT = 'OPEN_PROJECT';
+export const LOAD_PROJECT = 'LOAD_PROJECT';
 
 export function loadProjects() {
   return { type: LOAD_PROJECTS }
@@ -24,6 +24,6 @@ export function openProject(id) {
 
     if (!project) { return; }
 
-    dispatch({ type: OPEN_PROJECT, project: project });
+    dispatch({ type: LOAD_PROJECT, project: project });
   };
 }

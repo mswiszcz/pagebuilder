@@ -20,32 +20,50 @@ export default class Editor extends Component {
 
   render() {
     let activeRoute = this.props.router.getCurrentLocation().pathname;
-    const { currentProject, files, currentFile } = this.props;
+    const { currentProject, treeFiles, files, currentFile } = this.props;
 
     return (
-      <main className={styles.container}>
-        <TreeView currentProject={currentProject}
-                  currentFile={currentFile}
-                  files={files}
-                  createFile={this.props.createFile}
-                  saveFile={this.props.saveFile}
-                  deleteFile={this.props.deleteFile}
-                  openFile={this.props.openFile}
-                  renameFile={this.props.renameFile}
-                />
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <TreeView currentProject={currentProject}
+                    currentFile={currentFile}
+                    treeFiles={treeFiles}
+                    createFile={this.props.createFile}
+                    saveFile={this.props.saveFile}
+                    deleteFile={this.props.deleteFile}
+                    openFile={this.props.openFile}
+                    renameFile={this.props.renameFile}
+                  />
 
-        <div className={styles.mainContent}>
-          { currentFile ? <Tabs files={files} currentFile={currentFile} openFile={this.props.openFile}/> : '' }
-          { currentFile ? <CodeEditor currentFile={currentFile}
-                                      saveFile={this.props.saveFile}
-                                      updateFile={this.props.updateFile}
-                                      />
-                        : <EmptySpaceSlider />
-          }
+          <div className={styles.mainContent}>
+            <Tabs files={files} currentFile={currentFile} openFile={this.props.openFile}/>
+            { currentFile ? <CodeEditor currentFile={currentFile}
+                                        saveFile={this.props.saveFile}
+                                        updateFile={this.props.updateFile}
+                                        />
+                          : <EmptySpaceSlider />
+            }
+          </div>
+
+          <Sidebar activeRoute={activeRoute} />
+        </main>
+
+        <div className={styles.footer}>
+          <div className={styles.footerContent}>
+              { currentFile && <div>
+                <div className={styles.footerElement}>{ currentFile.shortenedPath() }</div>
+                <div className={styles.footerElement}>{ currentFile.updated ? 'Updated' : 'Saved' }</div>
+              </div>
+            }
+          </div>
+          <div className={styles.footerContent}>
+            <div className={styles.footerElement}>
+              <span>Gatsby server status + last operation</span>
+              <i />
+            </div>
+          </div>
         </div>
-
-        <Sidebar activeRoute={activeRoute} />
-      </main>
+      </div>
     );
   }
 }

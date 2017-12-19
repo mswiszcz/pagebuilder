@@ -46,13 +46,6 @@ export default class CodeEditor extends Component {
         <div className={styles.editor}>
           <CodeMirror value={this.props.currentFile.content} options={options} onChange={this.updateCode} />
         </div>
-        <div className={styles.footer}>
-          <div className={styles.footerElement} onClick={this.saveCode}>
-            <span className={styles.status}>
-              { this.state.status }
-            </span>
-          </div>
-        </div>
       </div>
     );
   }

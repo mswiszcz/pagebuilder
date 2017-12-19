@@ -1,8 +1,7 @@
 .component {
-  height: 100vh;
+  height: 100%;
   flex: 0 0 50px;
   background: #18181a;
-  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
   color: #fff;
   border-left: 1px solid #2f2f31;
 }

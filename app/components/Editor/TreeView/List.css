@@ -27,7 +27,7 @@
 }
 
 .section li.active {
-  box-shadow: inset 3px 0 0 0 rgb(53, 66, 187);
+  box-shadow: inset 3px 0 0 0 #744C9E;
   background: #222;
 }
 
@@ -44,7 +44,7 @@
   justify-content: space-between;
   background: #222;
   padding: 12px;
-  border-left: 3px solid rgb(53, 66, 187);
+  border-left: 3px solid #744C9E;
 }
 
 .sectionHeader i {
