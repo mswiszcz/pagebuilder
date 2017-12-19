@@ -18,6 +18,44 @@ export default class Editor extends Component {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.keyboardListener, false);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.keyboardListener, false);
+  }
+
+  keyboardListener = (event) => {
+    if (event.metaKey) {
+      if (event.keyCode >= 48 && event.keyCode <= 57) { this.switchToTab(event.keyCode - 48); }
+
+      if (event.key == 'w') {
+        // TODO
+        console.log('close');
+      }
+
+      if (event.key == 's') {
+        // TODO
+        console.log('save');
+      }
+
+      if (event.key == 'b') {
+        this.props.router.push(`/preview`);
+      }
+
+      if (event.key == 'l') {
+        // TODO
+        console.log('switch to deploy');
+      }
+    }
+  }
+
+  switchToTab(tabNumber) {
+    // TODO
+    console.log('switch to ' + tabNumber);
+  }
+
   render() {
     let activeRoute = this.props.router.getCurrentLocation().pathname;
     const { currentProject, treeFiles, files, currentFile } = this.props;
@@ -50,7 +88,7 @@ export default class Editor extends Component {
 
         <div className={styles.footer}>
           <div className={styles.footerContent}>
-              { currentFile && <div>
+              { currentFile && <div className={styles.footerContent}>
                 <div className={styles.footerElement}>{ currentFile.shortenedPath() }</div>
                 <div className={styles.footerElement}>{ currentFile.updated ? 'Updated' : 'Saved' }</div>
               </div>

@@ -160,10 +160,6 @@ app.on('ready', async () => {
         accelerator: 'Command+M',
         selector: 'performMiniaturize:'
       }, {
-        label: 'Close',
-        accelerator: 'Command+W',
-        selector: 'performClose:'
-      }, {
         type: 'separator'
       }, {
         label: 'Bring All to Front',

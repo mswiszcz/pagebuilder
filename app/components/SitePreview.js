@@ -26,26 +26,32 @@ export default class SitePreview extends Component {
     ]
   }
 
-  head = () => {
-    return '';
+  componentDidMount() {
+    console.log('site');
+    window.addEventListener('keydown', this.keyboardListener, false);
   }
 
-  scripts = () => {
-    return this.props.files.js.map((element) => {
-      return element.content
-    }).join('');
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.keyboardListener, false);
   }
 
-  styles = () => {
-    return this.props.files.css.map((element) => {
-      return element.content
-    }).join('');
+  keyboardListener = (event) => {
+    if (event.metaKey) {
+      if (event.keyCode >= 48 && event.keyCode <= 57) { this.switchToMode(event.keyCode - 48); }
+
+      if (event.key == 'e') {
+        this.props.router.push(`/editor`);
+      }
+
+      if (event.key == 'l') {
+        console.log('switch to deploy');
+      }
+    }
   }
 
-  body = () => {
-    return this.props.files.html.map((element) => {
-      return element.content
-    }).join('');
+  switchToMode(modeNumber) {
+    // TODO
+    console.log('mode ' + modeNumber);
   }
 
   resizeIframe = (e) => {
@@ -55,22 +61,6 @@ export default class SitePreview extends Component {
       iframeWidth: value[0],
       iframeHeight: value[1]
     });
-  }
-
-  iframeCode = () => {
-    return (
-      `<html>
-        <head>
-          ${ this.head() }
-          <style>${ this.styles() }</style>
-        </head>
-        <body>
-          ${ this.body() }
-
-          <script type='text/javascript'>${ this.scripts() }</script>
-        </body>
-      </html>`
-    );
   }
 
   toggleLandscapeMode = () => {
@@ -86,13 +76,12 @@ export default class SitePreview extends Component {
 
     const landscapeToggleClass = landscapeMode ? [styles.responsiveRotate, styles.responsiveRotateActive].join(' ') : styles.responsiveRotate;
     const responsiveToggleClass = responsiveMode ? [styles.responsiveToggle, styles.responsiveToggleActive].join(' ') : styles.responsiveToggle;
-    const responsiveIframeClass = responsiveMode ? [styles.previewIframe, styles.previewIframeResponsive].join(' ') : styles.previewIframe;
     const iframeWidth = responsiveMode ? landscapeMode ? this.state.iframeHeight : this.state.iframeWidth : '100%';
-    const iframeHeight = responsiveMode ? landscapeMode ? this.state.iframeWidth : this.state.iframeHeight : '100%';
+    const iframeHeight = responsiveMode ? landscapeMode ? this.state.iframeWidth : this.state.iframeHeight : '95%';
     let activeRoute = this.props.router.getCurrentLocation().pathname;
 
     return (
-      <main className={styles.container}>
+      <main className={styles.main}>
         <div className={styles.preview}>
           <div className={styles.previewToolbar}>
             <button className={responsiveToggleClass} title='Toggle Responsive Mode' onClick={this.toggleResponsiveMode}>
@@ -110,7 +99,7 @@ export default class SitePreview extends Component {
           </div>
 
           <div className={styles.iframeContainer}>
-            <iframe width={iframeWidth} height={iframeHeight} src="http://localhost:8000" frameBorder="0">
+            <iframe width={iframeWidth} scrolling="auto" height={iframeHeight} src="http://localhost:8000" frameBorder="0">
             </iframe>
           </div>
         </div>

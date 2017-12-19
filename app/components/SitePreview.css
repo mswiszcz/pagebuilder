@@ -1,5 +1,7 @@
-.container {
+.main {
   display: flex;
+  height: 100vh;
+  min-height: auto;
 }
 
 .preview {
@@ -15,16 +17,21 @@
   transition: width .3s, height .3s, margin .3s;
 }
 
-.previewIframeResponsive {
-  margin: 12px;
-  padding-right: 50px;
-}
-
 .iframeContainer {
   flex: 1 0 calc(100vh - 50px);
-  overflow: hidden;
   background: #232325;
   position: relative;
+  text-align: center;
+  overflow: auto;
+  max-width: calc(100vw - 51px);
+  padding: 10px;
+}
+
+.iframeContainer iframe {
+  border: 1px solid #666;
+  background: #fff;
+  margin: 0 auto;
+  transition: width .3s, height .3s;
 }
 
 .previewToolbar {

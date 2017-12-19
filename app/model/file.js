@@ -2,6 +2,7 @@ export class File {
   constructor(id, name, content, path, project) {
     this.id = id;
     this.name = name;
+    this.savedName = name;
 
     this.content = content;
     this.savedContent = content;

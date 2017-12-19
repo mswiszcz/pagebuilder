@@ -4,6 +4,7 @@ export const LOAD_PROJECTS = 'LOAD_PROJECTS';
 export const SAVE_PROJECT = 'SAVE_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const LOAD_PROJECT = 'LOAD_PROJECT';
+export const CLOSE_PROJECT = 'CLOSE_PROJECT';
 
 export function loadProjects() {
   return { type: LOAD_PROJECTS }
@@ -26,4 +27,8 @@ export function openProject(id) {
 
     dispatch({ type: LOAD_PROJECT, project: project });
   };
+}
+
+export function closeProject() {
+  return { type: CLOSE_PROJECT }
 }

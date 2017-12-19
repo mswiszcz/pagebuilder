@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import { PROJECT_DATE_FORMAT } from '../model/project';
 
-class Home extends Component {
+export default class Home extends Component {
   props: {
     projects: Object,
     servers: Object
@@ -91,5 +91,3 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;

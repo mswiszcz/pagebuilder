@@ -160,6 +160,7 @@
   },
   "dependencies": {
     "electron-debug": "^1.1.0",
+    "electron-localshortcut": "^2.0.2",
     "font-awesome": "^4.7.0",
     "haml": "^0.4.3",
     "js-beautify": "^1.6.8",
