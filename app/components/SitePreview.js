@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import styles from './SitePreview.css';
-import Sidebar from './Editor/Sidebar';
+import Sidebar from './common/Sidebar';
+
+import DefaultKeyboardEvents from '../utils/DefaultKeyboardEvents';
 
 export default class SitePreview extends Component {
   constructor(props) {
@@ -11,11 +13,10 @@ export default class SitePreview extends Component {
     this.state = {
       responsiveMode: false,
       landscapeMode: false,
-      iframeWidth: '320',
-      iframeHeight: '480'
+      size: 0
     }
 
-    this.responsiveModes = [
+    this.responsiveSizes = [
       ['320', '480'],
       ['360', '640'],
       ['768', '1024'],
@@ -27,7 +28,6 @@ export default class SitePreview extends Component {
   }
 
   componentDidMount() {
-    console.log('site');
     window.addEventListener('keydown', this.keyboardListener, false);
   }
 
@@ -36,31 +36,39 @@ export default class SitePreview extends Component {
   }
 
   keyboardListener = (event) => {
-    if (event.metaKey) {
-      if (event.keyCode >= 48 && event.keyCode <= 57) { this.switchToMode(event.keyCode - 48); }
+    const { currentFile, files, openFile, closeFile } = this.props;
 
-      if (event.key == 'e') {
-        this.props.router.push(`/editor`);
+    if (event.metaKey) {
+      if (!event.ctrlKey && event.keyCode >= 48 && event.keyCode <= 57) {
+        this.switchToSize(event.keyCode - 48);
+        return;
+      }
+
+      if (event.key == 'k') {
+        this.toggleResponsiveMode();
+        return;
       }
 
       if (event.key == 'l') {
-        console.log('switch to deploy');
+        this.toggleLandscapeMode();
+        return;
       }
     }
+
+    DefaultKeyboardEvents.call(this.props.router, event);
   }
 
-  switchToMode(modeNumber) {
-    // TODO
-    console.log('mode ' + modeNumber);
+  resizeIframe = (sizeNumber) => {
+    this.setState({ size: sizeNumber, responsiveMode: true });
   }
 
-  resizeIframe = (e) => {
-    const value = this.responsiveModes[parseInt(e.target.value)];
+  switchToSize(sizeNumber) {
+    if (sizeNumber >= this.responsiveSizes.length) { sizeNumber = this.responsiveSizes.length - 1 }
+    this.resizeIframe(sizeNumber);
+  }
 
-    this.setState({
-      iframeWidth: value[0],
-      iframeHeight: value[1]
-    });
+  resizeIframeEvent = (e) => {
+    this.resizeIframe(parseInt(e.target.value));
   }
 
   toggleLandscapeMode = () => {
@@ -71,14 +79,31 @@ export default class SitePreview extends Component {
     this.setState({ responsiveMode: !this.state.responsiveMode });
   }
 
+  iframeWidth() {
+    const { landscapeMode, responsiveMode, size } = this.state;
+
+    if (responsiveMode) {
+      return this.responsiveSizes[size][landscapeMode ? 1 : 0]
+    } else {
+      return '100%';
+    }
+  }
+
+  iframeHeight() {
+    const { landscapeMode, responsiveMode, size } = this.state;
+
+    if (responsiveMode) {
+      return this.responsiveSizes[size][landscapeMode ? 0 : 1]
+    } else {
+      return '95%';
+    }
+  }
+
   render() {
-    const { landscapeMode, responsiveMode } = this.state;
+    const { landscapeMode, responsiveMode, size } = this.state;
 
     const landscapeToggleClass = landscapeMode ? [styles.responsiveRotate, styles.responsiveRotateActive].join(' ') : styles.responsiveRotate;
     const responsiveToggleClass = responsiveMode ? [styles.responsiveToggle, styles.responsiveToggleActive].join(' ') : styles.responsiveToggle;
-    const iframeWidth = responsiveMode ? landscapeMode ? this.state.iframeHeight : this.state.iframeWidth : '100%';
-    const iframeHeight = responsiveMode ? landscapeMode ? this.state.iframeWidth : this.state.iframeHeight : '95%';
-    let activeRoute = this.props.router.getCurrentLocation().pathname;
 
     return (
       <main className={styles.main}>
@@ -87,10 +112,10 @@ export default class SitePreview extends Component {
             <button className={responsiveToggleClass} title='Toggle Responsive Mode' onClick={this.toggleResponsiveMode}>
               <i className="fa fa-clone" />
             </button>
-            <select disabled={!this.state.responsiveMode} onChange={this.resizeIframe} className={styles.responsiveSelect} title='Select responsive size'>
-              { this.responsiveModes.map((mode, i) => {
-                  let val = this.state.landscapeMode ?  `${mode[1]}x${mode[0]}` : `${mode[0]}x${mode[1]}`;
-                  return (<option key={`responsive-mode-${i}`} value={i}>{val}</option>)
+            <select value={size} disabled={!this.state.responsiveMode} onChange={this.resizeIframeEvent} className={styles.responsiveSelect} title='Select responsive size'>
+              { this.responsiveSizes.map((responsiveSize, i) => {
+                  let val = this.state.landscapeMode ? `${responsiveSize[1]}x${responsiveSize[0]}` : `${responsiveSize[0]}x${responsiveSize[1]}`;
+                  return (<option key={`responsive-size-${i}`} value={i}>{val}</option>)
               })}
             </select>
             <button disabled={!this.state.responsiveMode} className={landscapeToggleClass} onClick={this.toggleLandscapeMode} title='Rotate'>
@@ -99,12 +124,13 @@ export default class SitePreview extends Component {
           </div>
 
           <div className={styles.iframeContainer}>
-            <iframe width={iframeWidth} scrolling="auto" height={iframeHeight} src="http://localhost:8000" frameBorder="0">
-            </iframe>
+            <iframe width={this.iframeWidth()}
+                    height={this.iframeHeight()}
+                    src="http://localhost:8000"
+                    frameBorder="0"
+                    scrolling="auto" />
           </div>
         </div>
-
-        <Sidebar activeRoute={activeRoute} />
       </main>
     );
   }

@@ -10,7 +10,6 @@ export default class Header extends Component {
     return (
       <header className={styles.header}>
         <div className={styles.project}>
-          <img className={styles.icon} src={require('../../../../resources/animals/'+ currentProject.icon + '.png')} />
           <div className={styles.title}>{ currentProject.name }</div>
         </div>
       </header>

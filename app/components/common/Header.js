@@ -28,9 +28,9 @@ export default class Header extends Component {
           <Link to='/projects/new'>
             <div className={styles.newProjectButton}> New Project </div>
           </Link>
-          <Link to='/servers/new'>
+          {/* <Link to='/servers/new'>
             <div className={styles.newProjectButton}> New Server </div>
-          </Link>
+          </Link> */}
         </div> }
       </div>
     );

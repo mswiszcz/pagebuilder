@@ -2,18 +2,23 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 
-import { updateProjects, openProject } from './project';
+import { updateProjectList, openProject } from './project';
 import { updateServers } from './server';
-import { openFile, manageFiles } from './file';
-import { readProjectDirectory } from './filesystem';
+import { currentFile, files } from './file';
+import { treeFiles } from './filesystem';
+import { fetchInstalledPackages } from './package'
+import { gatsbyStatus, gatsbyDevelopProcess } from './gatsby'
 
 const rootReducer = combineReducers({
-  projects: updateProjects,
+  projects: updateProjectList,
   currentProject: openProject,
   servers: updateServers,
-  treeFiles: readProjectDirectory,
-  files: manageFiles,
-  currentFile: openFile,
+  treeFiles: treeFiles,
+  files: files,
+  currentFile: currentFile,
+  installedPackages: fetchInstalledPackages,
+  gatsbyStatus: gatsbyStatus,
+  gatsbyDevelopProcess: gatsbyDevelopProcess,
   routing
 });
 

@@ -1,5 +1,5 @@
 .component {
-  height: calc(100% - 36px);
+  height: 100%;
   flex: 1 0 auto;
   background: #1a1a1b;
   color: #fff;

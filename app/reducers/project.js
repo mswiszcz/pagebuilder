@@ -1,9 +1,8 @@
 // @flow
-import { LOAD_PROJECTS, SAVE_PROJECT, DELETE_PROJECT, LOAD_PROJECT } from '../actions/project';
-import { PROJECT_DATE_FORMAT, randomColorIcon } from '../model/project';
+import { LOAD_PROJECTS, SAVE_PROJECT, DELETE_PROJECT, LOAD_PROJECT, CLOSE_PROJECT } from '../actions/project';
+import { PROJECT_DATE_FORMAT } from '../model/project';
 
-import { Project } from '../model/project';
-import { File } from '../model/file';
+import { File, Project } from '../model';
 import moment from 'moment';
 import fs from 'fs';
 
@@ -11,45 +10,30 @@ export function openProject(state: Object = {}, action: Object) {
   switch (action.type) {
     case LOAD_PROJECT:
       return action.project;
+    case CLOSE_PROJECT:
+      return {};
     default:
       return state;
   }
 }
 
-export function updateProjects(state: Object = {}, action: Object) {
-  let result, project, id;
+export function updateProjectList(state: Object = {}, action: Object) {
+  let projects = {};
 
   switch (action.type) {
     case LOAD_PROJECTS:
-      result = Project.loadAll();
-
-      return result || state;
+      return Object.assign({}, action.projects);
     case SAVE_PROJECT:
-      result = Object.assign({}, state);
+      projects = Object.assign({}, state);
+      projects[action.id] = action.project;
 
-      if (action.id) {
-        project = Object.assign(Project.prototype, result[action.id]);
-        console.log(project);
-        project.update({ name: action.name, directory: action.directory })
-      } else {
-        id = (parseInt(Object.keys(state).pop() || 0) + 1);
-        project = new Project(id, action.name, action.directory);
-        project.setup();
-      }
-
-      result[action.id || id] = project;
-
-      Project.saveAll(result);
-      return result;
+      return projects;
     case DELETE_PROJECT:
-      delete state[action.id];
-      result = Object.assign({}, state);
+      projects = Object.assign({}, state);
+      delete projects[action.id];
 
-      Project.saveAll(result);
-      return result;
+      return projects;
     default:
       return state;
   }
-
-  return result || state;
 }

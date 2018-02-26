@@ -5,9 +5,13 @@ import styles from './CodeEditor.css';
 import CodeMirror from 'react-codemirror';
 
 import Notification from '../common/Notification';
+import { determineMode } from '../../utils/EditorModes';
 
 require('codemirror/mode/htmlmixed/htmlmixed');
 require('codemirror/mode/css/css');
+require('codemirror/mode/javascript/javascript');
+require('codemirror/mode/jsx/jsx');
+require('codemirror/mode/markdown/markdown');
 
 export default class CodeEditor extends Component {
   constructor(props) {
@@ -15,7 +19,7 @@ export default class CodeEditor extends Component {
 
     this.state = {
       status: props.currentFile.updated ? 'Updated' : 'Saved',
-      filetype: props.currentFile.filetype
+      filetype: props.currentFile.filetype()
     }
   }
 
@@ -24,7 +28,7 @@ export default class CodeEditor extends Component {
 
     this.setState({
       status: currentFile.updated ? 'Updated' : 'Saved',
-      filetype: currentFile.filetype
+      filetype: currentFile.filetype()
     });
   }
 
@@ -39,7 +43,8 @@ export default class CodeEditor extends Component {
   render() {
     let options = {};
     options['lineNumbers'] = options['lineNumbers'] || true;
-    options['theme'] = 'pastel-on-dark';
+    options['theme'] = 'base16-dark';
+    options['mode'] = determineMode(this.state.filetype);
 
     return (
       <div className={styles.component}>

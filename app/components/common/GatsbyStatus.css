@@ -1,0 +1,28 @@
+.gatsbyStatus {
+  display: flex;
+  align-items: center;
+}
+
+.statusIndicator {
+  background: rgb(88, 88, 88);
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: 1em;
+}
+
+.idle {
+  background: rgb(88, 88, 88);
+}
+
+.working {
+  background: #f4df42;
+}
+
+.running {
+  background: rgb(64, 187, 53);
+}
+
+.error {
+  background: #e03e3e;
+}

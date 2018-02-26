@@ -1,6 +1,6 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "~codemirror/lib/codemirror.css";
-@import "~codemirror/theme/pastel-on-dark.css";
+@import "~codemirror/theme/base16-dark.css";
 
 ::-webkit-scrollbar {
   background-color: #333;
@@ -21,6 +21,8 @@
 
 body {
   margin: 0;
+  background-color: #232325;
+  font-family: Fira Sans, Helvetica, Helvetica Neue, sans-serif;
 }
 
 main {
@@ -37,7 +39,6 @@ main * {
 }
 
 main.dashboard {
-  font-family: Fira Sans, Helvetica, Helvetica Neue, serif;
   padding: 20px 50px;
 }
 

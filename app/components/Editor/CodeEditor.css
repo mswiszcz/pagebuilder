@@ -11,4 +11,5 @@
   display: flex;
   flex: 1 0 auto;
   max-width: calc(100vw - 251px);
+  overflow: auto;
 }

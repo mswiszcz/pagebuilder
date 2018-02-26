@@ -1,13 +1,18 @@
 .component {
   background: #1a1a1b;
   height: 36px;
-  border-bottom: 1px solid #2f2f31;
+  box-shadow: 0 -1px 0 0 #2f2f31 inset;
   display: flex;
   font-size: .8em;
+  overflow: scroll;
+}
+
+.component::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
-  flex: 0 1 20%;
+  flex: 0 1 200px;
   text-align: center;
   line-height: 34px;
   color: #949393;
@@ -15,8 +20,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-top: 2px solid transparent;
-  transition: border-top .3s;
+  padding: 0 7px;
+  min-width: 100px;
+  position: relative;
+  margin-bottom: 1px;
 }
 
 .tab:hover {
@@ -24,9 +31,42 @@
 }
 
 .activeTab, .activeTab:hover {
+  margin-bottom: 0;
   background: #232325;
   color: #eee;
-  margin-bottom: -1px;
   cursor: default;
   border-top: 2px solid #744C9E;
+}
+
+.tab i {
+  right: 5px;
+  position: absolute;
+  top: 7px;
+  bottom: 0;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  background: #1f1f20;
+  font-size: 12px;
+  display: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.tab i:hover {
+  background: #744C9E;
+}
+
+.tab:hover i {
+  display: block;
+}
+
+.tab .statusInfo {
+  display: block;
+  top: 14px;
+  right: 12px;
+  background: rgb(64, 187, 53);
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
 }

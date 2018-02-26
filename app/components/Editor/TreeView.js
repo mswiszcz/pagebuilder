@@ -10,35 +10,40 @@ import Header from './TreeView/Header';
 import List from './TreeView/List';
 import FileModal from './TreeView/FileModal';
 
+import Directory from '../../model/directory';
+
 export default class TreeView extends Component {
   state = {
     showModal: false,
-    showContextMenu: false
+    showContextMenu: false,
+    saveAction: () => {}
   }
 
-  newFile = () => {
-    let file = new File(null, '', '', 'html');
-
+  newFile = (directory) => {
     this.setState({
       showModal: true,
       modalHeader: `Enter name for new file:`,
-      focusFile: file,
+      focusFile: null,
+      saveAction: (path) => { this.props.createFile(path, directory); }
     })
   }
 
-  renameFile = (file) => {
+  renameFile = () => {
+    const file = this.state.focusFile;
+
     this.setState({
       showModal: true,
       modalHeader: `Enter new name for ${file.name}:`,
+      saveAction: (name) => { this.props.renameFile(file, name); }
     })
   }
 
-  toggleContextMenu = (event, file) => {
+  toggleContextMenu = (event, pos) => {
     this.setState({
       contextMenuX: event.clientX,
       contextMenuY: event.clientY,
       showContextMenu: true,
-      focusFile: file
+      focusFile: pos
     });
   }
 
@@ -51,7 +56,7 @@ export default class TreeView extends Component {
   }
 
   render() {
-    const { currentProject, treeFiles, currentFile } = this.props;
+    const { currentProject, treeFiles, currentFile, expandDirectory, closeDirectory } = this.props;
 
     return (
       <div className={styles.component}>
@@ -59,18 +64,21 @@ export default class TreeView extends Component {
 
         <div className={styles.content}>
           <List currentFile={currentFile}
+                currentProject={currentProject}
                 files={treeFiles}
                 filetype='html'
                 header='Source'
                 openFile={this.props.openFile}
                 newFile={this.newFile}
                 onContextMenu={this.toggleContextMenu}
+                expandDirectory={expandDirectory}
+                closeDirectory={closeDirectory}
           />
 
           { this.state.showModal &&
               <FileModal  file={this.state.focusFile}
                           header={this.state.modalHeader}
-                          onSubmit={this.props.saveFile}
+                          onSubmit={this.state.saveAction}
                           onClose={this.hideModal}
                         /> }
 

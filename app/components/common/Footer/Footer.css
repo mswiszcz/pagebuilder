@@ -1,0 +1,12 @@
+.footer {
+  flex: 0 0 auto;
+  line-height: 24px;
+  font-size: .8em;
+  background: #0b0b0b;
+  border-top: 1px solid #222;
+  color: #888;
+  position: relative;
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+}

@@ -11,31 +11,18 @@
   font-weight: 300;
   font-style: italic;
   font-size: .9em;
+  text-align: center;
 }
 
 .section li {
-  padding: 7px 20px;
   cursor: pointer;
   outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
 }
 
-.section li:hover {
-  background: #222;
-}
-
-.section li.active {
+.section li.active .item {
   box-shadow: inset 3px 0 0 0 #744C9E;
   background: #222;
-}
-
-.section li i {
-  background: rgb(64, 187, 53);
-  border-radius: 50%;
-  width: 7px;
-  height: 7px;
 }
 
 .sectionHeader {
@@ -54,6 +41,58 @@
 }
 
 .sectionHeader i:hover {
+  opacity: 1;
+  color: #2dc42f;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.directoryIcon {
+  color: #bfbfbf;
+}
+
+.fileIcon {
+  color: #8457b3;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.itemName {
+  padding-left: 7px;
+}
+
+.item {
+  padding: 7px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.item:hover {
+  background: #222;
+}
+
+li > .list {
+  padding-top: 0;
+}
+
+li > ul li {
+  padding-left: 10px;
+}
+
+.addIcon {
+  position: absolute;
+  right: 5px;
+  cursor: pointer;
+  opacity: .5;
+  transition: opacity .3s, color .3s;
+}
+
+.addIcon:hover {
   opacity: 1;
   color: #2dc42f;
 }

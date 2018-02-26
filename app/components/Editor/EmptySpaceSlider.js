@@ -8,7 +8,6 @@ export default class EmptySpaceSlider extends Component {
       <div className={styles.component}>
         <div className={styles.slide}>
           No file selected <br/>
-          Open file from tree on the left
         </div>
       </div>
     );

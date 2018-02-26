@@ -1,20 +1,18 @@
+@-webkit-keyframes fadein {
+    to   { opacity: 1; }
+}
+
 .main {
   display: flex;
   height: 100vh;
   min-height: auto;
+  width: 100%;
 }
 
 .preview {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
-}
-
-.previewIframe {
-  border: 0;
-  position: absolute;
-  margin: 0;
-  transition: width .3s, height .3s, margin .3s;
 }
 
 .iframeContainer {
@@ -32,6 +30,9 @@
   background: #fff;
   margin: 0 auto;
   transition: width .3s, height .3s;
+  opacity: 0;
+  animation: fadein 1s .5s;
+  -webkit-animation-fill-mode: forwards;
 }
 
 .previewToolbar {

@@ -1,0 +1,17 @@
+.footerElement {
+  margin-right: .5em;
+  padding: 0 10px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+}
+
+.footerElement:last-child {
+  margin-right: 0;
+}
+
+.footerElement:hover {
+  cursor: pointer;
+  background: #181818;
+  text-decoration: underline;
+}

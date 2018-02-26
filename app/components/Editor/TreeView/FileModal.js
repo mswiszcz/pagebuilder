@@ -4,10 +4,6 @@ import { Link } from 'react-router';
 import Modal from '../../common/Modal';
 
 export default class FileModal extends Component {
-  updateFileName = (e) => {
-    this.props.file.name = e.target.value;
-  }
-
   componentDidMount = () => {
     if (this.input) { this.input.focus() }
   }
@@ -18,7 +14,7 @@ export default class FileModal extends Component {
         this.props.onClose();
         return;
       case 13:
-        this.props.onSubmit(this.props.file);
+        this.props.onSubmit(this.input.value);
         this.props.onClose();
         return;
     }
@@ -26,6 +22,7 @@ export default class FileModal extends Component {
 
   render() {
     const { file, header } = this.props;
+    const val = !!file ? file.name : '';
 
     return (
       <Modal onClose={this.props.onClose}>
@@ -33,10 +30,9 @@ export default class FileModal extends Component {
         <input  ref={(input) => { this.input = input; }}
                 id='filename'
                 type='text'
-                defaultValue={file.name}
+                defaultValue={val}
                 placeholder='Enter file name'
                 onKeyDown={this.handleKeyboardInput}
-                onChange={this.updateFileName}
               />
       </Modal>
     );

@@ -1,118 +1,88 @@
 // @flow
-import { OPEN_FILE, SAVE_FILE, DELETE_FILE, UPDATE_FILE, CLOSE_FILE } from '../actions/file';
-import { LOAD_PROJECT } from '../actions/project';
+import { OPEN_FILE, SAVE_FILE, DELETE_FILE, UPDATE_FILE, CLOSE_FILE, RENAME_FILE } from '../actions/file';
+import { CLOSE_PROJECT } from '../actions/project';
 import { File } from '../model/file';
 import { Directory } from '../model/directory';
 import fs from 'fs';
 
-export function openFile(file = null, action: Object) {
-  let newFile;
+export function currentFile(file = null, action: Object) {
+  let result = null;
 
   switch (action.type) {
     case OPEN_FILE:
-      return action.file;
+      if (!action.file) { return null; }
+
+      result = Object.assign(Object.create(action.file), action.file);
+      if (action.file.updated) { return result; }
+
+      result.content = fs.readFileSync(action.file.fullPath(), 'utf8');
+      result.savedContent = result.content;
+      return result;
+    case UPDATE_FILE:
+      result = Object.assign(Object.create(action.file), action.file);
+
+      result.content = action.content;
+      result.updated = result.savedContent != action.content;
+
+      return result;
+    case SAVE_FILE:
+      result = Object.assign(Object.create(action.file), action.file);
+
+      result.savedContent = result.content;
+      result.updated = false;
+      fs.writeFileSync(result.fullPath(), result.content, 'utf8');
+      return result;
+    case CLOSE_PROJECT:
+      return null;
     default:
       return file;
   }
-  // switch (action.type) {
-  //   case CLOSE_FILE:
-  //   case LOAD_PROJECT:
-  //     return null;
-  //   case OPEN_FILE:
-  //     return null;
-  //   case SAVE_FILE:
-  //     if (!state) { return state }
-  //     newFile = Object.assign(Object.create(state), state);
-  //
-  //     newFile.savedContent = state.content;
-  //     newFile.updated = false;
-  //
-  //     return newFile;
-  //   case UPDATE_FILE:
-  //     newFile = Object.assign(Object.create(state), state);
-  //
-  //     if (action.filetype) { newFile.filetype = action.filetype }
-  //     if (action.mode) { newFile.mode = action.mode }
-  //
-  //     newFile.updated = state.savedContent != action.content;
-  //     newFile.content = action.content;
-  //
-  //     return newFile;
-  //   default:
-  //     return state
-  // }
 }
 
-export function manageFiles(state = [], action: Object) {
+export function files(state = [], action: Object) {
   let newFiles;
   let file, newFile;
 
   switch (action.type) {
     case OPEN_FILE:
-      if (!state.includes(action.file)) {
-        newFiles = Object.assign([], state);
-        newFiles.push(action.file);
-        return newFiles;
-      } else {
-        return state;
-      }
+      if (!action.file) { return state; }
+
+      const fileIndex = state.findIndex((element) => element.fullPath() == action.file.fullPath())
+      if (fileIndex >= 0) { return state; }
+
+      newFiles = Object.assign([], state);
+      newFiles.push(action.file);
+      return newFiles;
     case CLOSE_FILE:
-      console.log("CLOSE");
-      return state;
+      newFiles = Object.assign([], state.filter((file) => file.fullPath() != action.file.fullPath()));
+
+      return newFiles;
     case UPDATE_FILE:
-      file = action.file;
       newFiles = Object.assign([], state);
 
-      newFile = newFiles.find((element) => { return element.id == file.id });
-
-      if (action.name) { newFile.name = action.name }
-      if (action.filetype) { newFile.filetype = action.filetype }
-      if (action.mode) { newFile.mode = action.mode }
-      if (action.content) {
-        newFile.updated = file.savedContent != action.content;
-        newFile.content = action.content;
-      }
+      newFile = newFiles.find((element) => element.fullPath() == action.file.fullPath());
+      newFile.updated = newFile.savedContent != action.content;
+      newFile.content = action.content;
 
       return newFiles;
     case SAVE_FILE:
-      // FIXME
+      newFiles = Object.assign([], state);
 
-      file = action.file;
-      newFiles = Object.assign({}, state);
-
-      if (file.id != undefined) {
-        newFile = newFiles[file.type].find((element) => { return element.id == file.id });
-
-        newFile.content = file.content;
-        newFile.name = file.name;
-        newFile.savedContent = file.content;
-        newFile.updated = false;
-      } else {
-        let lastFile = state[file.filetype].slice(-1)[0];
-        file.id = lastFile ? lastFile.id + 1 : 0;
-        newFiles[file.type].push(file);
-        newFile = file;
-      }
-
-      if (newFile.savedName != file.name) {
-        fs.unlink(`${action.currentProject.directories[newFile.type]}/${newFile.savedName}.${newFile.type}`);
-      }
-
-      newFile.savedName = file.name;
-      newFile.project = action.currentProject;
-      fs.writeFile(`${action.currentProject.directories[newFile.type]}/${newFile.name}.${newFile.type}`, newFile.content);
+      newFile = newFiles.find((element) => element.fullPath() == action.file.fullPath());
+      newFile.savedName = action.file.name;
+      newFile.savedContent = action.file.content;
+      newFile.updated = false;
 
       return newFiles;
     case DELETE_FILE:
-      file = action.file;
-      newFiles = Object.assign({}, state);
-      newFile = newFiles[file.type].indexOf(file);
-      newFiles[file.type].splice(newFile, 1);
-
-      fs.unlink(`${file.project.directories[file.type]}/${file.name}.${file.type}`)
-      // TODO: Remove from filesystem
+      newFiles = Object.assign([], state);
+      const removedFileIndex = newFiles.findIndex((element) => element.fullPath() == action.file.fullPath());
+      if (removedFileIndex < 0) { return newFiles; }
+      newFiles.splice(removedFileIndex, 1);
 
       return newFiles;
+    case CLOSE_PROJECT:
+      return [];
     default:
       return state;
   }

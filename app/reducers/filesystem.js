@@ -1,23 +1,34 @@
 // @flow
-import { RENAME_FILE, DELETE_FILE } from '../actions/file';
-import { LOAD_PROJECT } from '../actions/project';
-import { EXPAND_DIRECTORY } from '../actions/tree';
+import { DELETE_FILE } from '../actions/file';
+import { LOAD_PROJECT, CLOSE_PROJECT } from '../actions/project';
+import { EXPAND_DIRECTORY, CLOSE_DIRECTORY, UPDATE_FILE_TREE } from '../actions/tree';
 import { File } from '../model/file';
 import { Directory } from '../model/directory';
 import fs from 'fs';
 
-export function readProjectDirectory(files = [], action: Object) {
+export function treeFiles(files = [], action: Object) {
+  let result, directoryFiles;
+
   switch (action.type) {
+    case UPDATE_FILE_TREE:
+      result = action.treeFiles;
+      return result;
     case LOAD_PROJECT:
-    case RENAME_FILE:
-    case DELETE_FILE:
-      let newFiles = loadFilesFromDirectory(action.project);
-
-      return newFiles;
+      result = loadFilesFromDirectory(action.project, action.project.getDirectory());
+      return result;
     case EXPAND_DIRECTORY:
-      // TODO Read selected directory
+      directoryFiles = loadFilesFromDirectory(action.project, action.directory);
+      action.directory.files = directoryFiles;
+      action.directory.expanded = true;
 
-      return files;
+      return Object.assign([], files);
+    case CLOSE_DIRECTORY:
+      action.directory.files = [];
+      action.directory.expanded = false;
+
+      return Object.assign([], files);
+    case CLOSE_PROJECT:
+      return [];
     default:
       return files;
   }
@@ -25,18 +36,17 @@ export function readProjectDirectory(files = [], action: Object) {
   return files;
 }
 
-function loadFilesFromDirectory(project) {
-  let files = fs.readdirSync(project.directory);
-
-  files = files.map((file, i) => {
-    let path = `${project.directory}/${file}`;
+function loadFilesFromDirectory(project, directory) {
+  return fs.readdirSync(directory.path).map((fileName, i) => {
+    let path = `${directory.path}/${fileName}`;
 
     if (fs.lstatSync(path).isDirectory()) {
-      return new Directory(`tree-dir-${i}`, file, path, project);
+      return new Directory({ name: fileName, path, project });
     } else {
-      return new File(`tree-file-${i}`, file, '', path, project);
+      return new File({
+        name: fileName,
+        content: '', project, directory
+      });
     }
   });
-
-  return files;
 }

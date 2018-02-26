@@ -1,6 +1,5 @@
 export class File {
-  constructor(id, name, content, path, project) {
-    this.id = id;
+  constructor({ name, content, project, directory }) {
     this.name = name;
     this.savedName = name;
 
@@ -8,8 +7,23 @@ export class File {
     this.savedContent = content;
 
     this.updated = false;
-    this.path = path;
     this.project = project;
+
+    this.directory = directory;
+  }
+
+  icon = () => {
+    return this.filetype();
+  }
+
+  filetype = () => {
+    const type = this.name.substring(this.name.lastIndexOf('.') + 1, this.name.length);
+    switch (type) {
+      case 'js':
+        return 'jsx';
+      default:
+        return type;
+    }
   }
 
   shortenedPath = () => {
@@ -18,6 +32,6 @@ export class File {
   }
 
   fullPath = () => {
-    return `${this.project.directory}/${this.savedName}`;
+    return `${this.directory.path}/${this.savedName}`;
   }
 }
