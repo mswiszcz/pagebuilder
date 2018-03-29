@@ -1,19 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
-import { routerMiddleware, push } from 'react-router-redux';
+import { routerMiddleware } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
-
-import * as projectActions from '../actions/project';
-import * as serverActions from '../actions/server';
-import * as fileActions from '../actions/file';
-
-const actionCreators = {
-  ...projectActions,
-  ...fileActions,
-  push,
-};
 
 const logger = createLogger({
   level: 'info',
@@ -22,18 +12,7 @@ const logger = createLogger({
 
 const router = routerMiddleware(hashHistory);
 
-// If Redux DevTools Extension is installed use it, otherwise use Redux compose
-/* eslint-disable no-underscore-dangle */
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
-    actionCreators,
-  }) :
-  compose;
-/* eslint-enable no-underscore-dangle */
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk, router, logger)
-);
+const enhancer = applyMiddleware(thunk, router, logger);
 
 export default function configureStore(initialState: Object | void) {
   const store = createStore(rootReducer, initialState, enhancer);

@@ -36,7 +36,7 @@ export function loadProjects() {
   };
 }
 
-export function createProject(name) {
+export function createProject(name, templateUrl) {
   return (dispatch: Function, getState: Function) => {
     const id = new Buffer(getProjectRootPath() + '/' + name).toString('base64');
     const project = new Project(id, name);
@@ -46,7 +46,7 @@ export function createProject(name) {
 
     dispatch({ type: SAVE_PROJECT, id, project });
 
-    require('child_process').exec(`cd ${getProjectRootPath()} && gatsby new ${project.name}`, (error, stdout, stderr) => {
+    require('child_process').exec(`cd ${getProjectRootPath()} && gatsby new ${project.name} ${templateUrl}`, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;

@@ -11,7 +11,6 @@ import fs from 'fs';
 
 export function fetchInstalledPackages() {
   return (dispatch: Function, getState: Function) => {
-    let exec = require('child_process').exec;
     const { currentProject } = getState();
 
     const packageJson = JSON.parse(fs.readFileSync(`${currentProject.getDirectory().path}/package.json`, 'utf8'));

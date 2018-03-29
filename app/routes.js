@@ -7,9 +7,7 @@ import HomePage from './containers/HomePage';
 import EditorPage from './containers/EditorPage';
 import PreviewPage from './containers/PreviewPage';
 import PackagesPage from './containers/PackagesPage';
-import DeployPage from './containers/DeployPage';
 import ProjectFormPage from './containers/project/FormPage';
-import ServerFormPage from './containers/server/FormPage';
 
 export default (
   <Route path='/' component={App}>
@@ -17,12 +15,8 @@ export default (
     <Route path='/editor' component={EditorPage} />
     <Route path='/preview' component={PreviewPage} />
     <Route path='/packages' component={PackagesPage} />
-    <Route path='/deploy' component={DeployPage} />
 
     <Route path='/projects/new' component={ProjectFormPage} />
     <Route path='/projects/:id/edit' component={ProjectFormPage} />
-
-    <Route path='/servers/new' component={ServerFormPage} />
-    <Route path='/servers/:id/edit' component={ServerFormPage} />
   </Route>
 );

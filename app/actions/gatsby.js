@@ -10,10 +10,6 @@ import childProcess from 'child_process';
 
 import { STATUS } from '../reducers/gatsby';
 
-export function gatsbyBuild() {
-  return { type: GATSBY_BUILD_STARTED }
-}
-
 export function gatsbyDevelopStart() {
   return (dispatch: Function, getState: Function) => {
     const { currentProject } = getState();

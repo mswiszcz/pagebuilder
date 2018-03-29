@@ -8,14 +8,8 @@ export default class DefaultKeyboardEvents {
         case '2':
           router.push(`/preview`);
           return;
-        case '3':
-          router.push(`/split`);
-          return;
         case '4':
           router.push(`/packages`);
-          return;
-        case '0':
-          router.push(`/deploy`);
           return;
       }
     }

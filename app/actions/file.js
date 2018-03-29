@@ -36,33 +36,25 @@ export function createFile(name, directory) {
 }
 
 function addFileToCollection(collection, directory, file) {
-  let result, item = null;
+  if (directory.fullPath() != file.project.getDirectory().fullPath()) {
+    for (let item of collection) {
+      if (item instanceof Directory) {
+        if (item.fullPath() == directory.fullPath()) {
+          collection = item.files;
+          break;
+        }
 
-  if (directory.fullPath() == file.project.getDirectory().fullPath()) {
-    collection.push(file);
-    collection.sort((a, b) => {
-      if(a.name < b.name) return -1;
-      if(a.name > b.name) return 1;
-      return 0;
-    });
-    return collection;
-  }
-
-  for (let item of collection) {
-    if (item instanceof Directory) {
-      if (item.fullPath() == directory.fullPath()) {
-        item.files.push(file);
-        item.files.sort((a, b) => {
-          if(a.name < b.name) return -1;
-          if(a.name > b.name) return 1;
-          return 0;
-        });
-        break;
+        collection = addFileToCollection(item.files, directory, file);
       }
-
-      item.files = addFileToCollection(item.files, directory, file);
     }
   }
+
+  collection.push(file);
+  collection.sort((a, b) => {
+    if(a.name < b.name) return -1;
+    if(a.name > b.name) return 1;
+    return 0;
+  });
 
   return collection;
 }
