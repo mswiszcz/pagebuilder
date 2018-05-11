@@ -16,6 +16,10 @@ This application is being build by me as a part of my thesis, which is supervise
 
 Project bases on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate) and utilizes amazing animal icon pack by [icons8](https://icons8.com/)
 
+## Starting with development
+
+In order to start with development you need to install NodeJS & NPM on your machine. Then clone this repository and run `npm install` to install all dependencies. To start application run `npm run dev`, to package `npm package`
+
 ## License
 
 MIT © [Mateusz Świszcz](http://github.com/mswiszcz)
